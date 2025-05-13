@@ -11,7 +11,7 @@ import os
 load_dotenv()
 
 from app.db import Base
-from app.models import *
+from app import models as _
 
 
 # this is the Alembic Config object, which provides
