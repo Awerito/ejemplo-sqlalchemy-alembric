@@ -11,6 +11,6 @@ load_dotenv()
 # URI: "postgresql://user:password@localhost:port/dbname"
 DATABASE_URI = os.getenv("DATABASE_URI", "")
 engine = create_engine(DATABASE_URI)
-metadata = MetaData(schema="public")  # Cambia "public" si usas otro esquema
+metadata = MetaData(schema=os.getenv("DATABASE_SCHEMA", "public"))
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base(metadata=metadata)
