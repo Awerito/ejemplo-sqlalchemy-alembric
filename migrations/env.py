@@ -35,6 +35,14 @@ target_metadata = Base.metadata
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
+schema = os.getenv("DATABASE_SCHEMA", "public")
+
+
+def include_object(object, name, type_, reflected, compare_to):
+    if type_ == "table" and not object.schema:
+        object.schema = schema
+    return True
+
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
@@ -54,6 +62,8 @@ def run_migrations_offline() -> None:
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        include_object=include_object,
+        version_table_schema=schema,
     )
 
     with context.begin_transaction():
@@ -77,7 +87,8 @@ def run_migrations_online() -> None:
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
-            version_table_schema=os.getenv("DATABASE_SCHEMA", "public"),
+            include_object=include_object,
+            version_table_schema=schema,
         )
 
         with context.begin_transaction():
