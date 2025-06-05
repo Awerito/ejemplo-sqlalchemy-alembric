@@ -52,6 +52,16 @@ Ahora puedes importar modelos y usar SQLAlchemy normalmente con la base de datos
 
 ---
 
+6. **Aplicación FastAPI (opcional)**
+
+Para lanzar el servidor FastAPI:
+
+```bash
+fastapi dev main.py
+```
+
+---
+
 ## 📁 Archivos importantes
 
 * `.env`: configuración local (no lo subas)
